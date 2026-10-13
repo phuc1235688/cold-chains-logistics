@@ -186,5 +186,4 @@ g++ -std=c++17 -Wall -Wextra iot-simulator/src/main.cpp backend-core/domain/iot/
 ---
 
 ## 7. Trạng Thái Nhánh Git
-* **Nhánh phát triển:** `feature/tv2-sensor` (tách từ `dev`).
-* **Cam kết chất lượng:** Không push trực tiếp vào `main`/`dev`, hoàn thành 100% test cases trước khi mở Pull Request.
+* **Nhánh phát triển:** `feature/tv2-sensor` (tách từ `main`).
