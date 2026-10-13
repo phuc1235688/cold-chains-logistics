@@ -25,16 +25,16 @@ public:
         // Nghiệp vụ TV1 kiểm tra điều kiện bảo quản chuỗi lạnh
         if (reading.getCelsius() > MAX_THRESHOLD) {
             violationCount++;
-            std::cout << "     [! CANH BAO TV1] Nhiet do vuot nguong an toan (" 
+            std::cout << "     [! CANH BAO] Nhiet do vuot nguong an toan (" 
                       << MAX_THRESHOLD << " C)! So lan vi pham lien tiep: " << violationCount << "\n";
 
             if (violationCount >= CRITICAL_LIMIT) {
-                std::cout << "     [!!! NGUY HIEM TV1] VI PHAM QUA " << CRITICAL_LIMIT 
+                std::cout << "     [!!! NGUY HIEM] VI PHAM QUA " << CRITICAL_LIMIT 
                           << " LAN -> KICH HOAT LENH HUY LO HANG TRONG CONTAINER!\n";
             }
         } else {
             if (violationCount > 0) {
-                std::cout << "     [✓ HOI PHUC TV1] Nhiet do da tro ve dải an toan. Reset bo dem vi pham.\n";
+                std::cout << "     [✓ HOI PHUC] Nhiet do da tro ve dải an toan. Reset bo dem vi pham.\n";
                 violationCount = 0;
             }
         }
