@@ -18,7 +18,7 @@ private:
 
 public:
     void onReading(const Domain::IoT::TemperatureReading& reading) override {
-        std::cout << "  -> [TV1-Shipment Receiver] Nhan du lieu: Sensor = " << reading.getSensorId()
+        std::cout << "  -> Nhan du lieu: Sensor = " << reading.getSensorId()
                   << " | Nhiet do = " << reading.getCelsius() << " C"
                   << " | Thoi gian = " << reading.getTimestamp() << "\n";
 
@@ -43,8 +43,7 @@ public:
 
 int main() {
     std::cout << "======================================================================\n";
-    std::cout << "   HE THONG CHUOI CUNG UNG LANH (COLD CHAIN LOGISTICS) - NHOM 8       \n";
-    std::cout << "   PHAN HE SENSING & IOT (TV2) - REFACTOR CHUAN DDD & MULTI-THREADING \n";
+    std::cout << "   HE THONG CHUOI CUNG UNG LANH (COLD CHAIN LOGISTICS)   \n";
     std::cout << "======================================================================\n\n";
 
     // 1. Khởi tạo Domain Entity SensorDevice
@@ -59,14 +58,14 @@ int main() {
     auto tv1Handler = std::make_shared<ShipmentReadingReceiver>();
     gateway->registerHandler(tv1Handler);
     gateway->registerDevice(containerSensor.getSensorId(), containerSensor.getContainerId());
-    std::cout << "[Gateway-ACL] Da dang ky SensorGateway va ket noi ISensorReadingHandler (TV1).\n\n";
+    std::cout << "[Gateway-ACL] Da dang ky SensorGateway va ket noi ISensorReadingHandler.\n\n";
 
     // 3. Khởi tạo Simulator (chu kỳ 1000ms)
     auto simulator = std::make_unique<SensorSimulator>(gateway, 1000);
     simulator->addSensor(containerSensor.getSensorId());
 
     // 4. Menu lựa chọn kịch bản
-    std::cout << "CHON KICH BAN MO PHONG CAM BIEN (14/10 - 20/10):\n";
+    std::cout << "CHON KICH BAN MO PHONG CAM BIEN:\n";
     std::cout << "  1. STABLE: On dinh trong dai an toan (2.5C - 4.8C)\n";
     std::cout << "  2. DRIFT : Hong thung / That thoat nhiet (Nhiet do tang dan deu)\n";
     std::cout << "  3. SPIKE : Dot bien nhiet tuc thoi (Vuot nguong warning roi tu hoi phuc)\n";
@@ -94,12 +93,13 @@ int main() {
     }
 
     std::cout << "\n--> Che do dang chay: " << simulator->getModeString() << "\n";
-    std::cout << "--> Bat dau luong nen std::thread... (Mo phong phat 5 chu ky du lieu mau)\n\n";
+    std::cout << "--> Bat dau mo phong (Du lieu duoc gui moi 1 giay trong 5 chu ky)\n";
 
     simulator->start();
 
-    // Chay mo phong trong 5.2 giay (tuong duong 5 chu ky do)
-    std::this_thread::sleep_for(std::chrono::milliseconds(5200));
+    // Chờ người dùng nhấn Enter để dừng
+    std::cin.ignore(10000, '\n');
+    std::cin.get();
 
     std::cout << "\n[Simulator] Dang dung luong an toan (workerThread.join())...\n";
     simulator->stop();
